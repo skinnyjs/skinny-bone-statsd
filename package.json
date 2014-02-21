@@ -1,0 +1,24 @@
+{
+    "name":            "skinny-bone-statsd",
+    "version":         "0.0.1",
+    "description":     "Statd client bone for skinny",
+    "author":          "Geometria Lab",
+    "contributors":    [
+        {
+            "name":  "Ivan Shumkov",
+            "email": "ivan@shumkov.ru"
+        }
+    ],
+    "main":            "./bone.js",
+    "repository":      {
+        "type": "git",
+        "url":  "https://github.com/skinnyjs/skinny-bone-statsd.git"
+    },
+    "dependencies":    {
+        "lynx": "0.1"
+    },
+    "devDependencies": {},
+    "engines":         [
+        "node >=0.11"
+    ]
+}
