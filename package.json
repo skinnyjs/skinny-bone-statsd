@@ -15,7 +15,7 @@
         "url":  "https://github.com/skinnyjs/skinny-bone-statsd.git"
     },
     "dependencies":    {
-        "lynx": "0.1"
+         "node-statsd": "0.0.7"
     },
     "devDependencies": {},
     "engines":         [
