@@ -1,28 +1,29 @@
-var Lynx = require('lynx');
+var StatsD = require('node-statsd').StatsD;
+var Timer = require('./timer');
+var thunkify = require('thunkify');
 
 module.exports = function(skinny, options) {
     "use strict";
 
-    options.on_error = function(error) {
-        skinny.emit('error', error);
-    };
+    skinny.statsd = new StatsD(options);
+    skinny.statsd.socket.close = thunkify(skinny.statsd.socket.close);
 
-    skinny.statsd = new Lynx(options.host, options.port, options);
-
-    skinny.on('beforeAction', function(name, params, actionSkinny) {
-        var timer = skinny.statsd.createTimer('actions.' + name);
-        timer.autoStop = true;
-
-        actionSkinny.timer = timer;
+    skinny.statsd.socket.on('error', function(error) {
+        skinny.emit('warning', error);
     });
 
-    skinny.on('afterAction', function(name, params, actionSkinny) {
+    skinny.on('beforeAction', function startTimer(name, params, actionSkinny) {
+        actionSkinny.timer = new Timer(skinny.statsd, 'actions.' + name);
+        actionSkinny.timer.start();
+    });
+
+    skinny.on('afterAction', function stopTimer(name, params, actionSkinny) {
         if (actionSkinny.timer.autoStop) {
             actionSkinny.timer.stop();
         }
     });
 
-    skinny.on('shutdown', function *() {
-        skinny.statsd.close();
+    skinny.on('*shutdown', function *shutdown() {
+        yield skinny.statsd.socket.close();
     });
 };
