@@ -16,7 +16,7 @@
     },
     "dependencies":    {
          "node-statsd": "0.0.7",
-         "thunkify":    "0.0.1",
+         "thunkify":    "0.0.1"
     },
     "devDependencies": {},
     "engines":         [
