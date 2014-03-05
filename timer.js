@@ -1,7 +1,7 @@
-function Timer(statd, name) {
+function Timer(statd, name, sampleRate) {
     this.statd = statd;
     this.name = name;
-    this.autoStop = true;
+    this.sampleRate = sampleRate;
     this.startTime = null;
     this.elapsedTime = null;
 };
@@ -23,7 +23,7 @@ Timer.prototype.stop = function() {
 
     this.elapsedTime = (stop[0] *1e9 + stop[1]) / 1e6;
 
-    this.statd.timing(this.name, this.elapsedTime.toFixed(3));
+    this.statd.timing(this.name, this.elapsedTime.toFixed(3), this.sampleRate);
 };
 
 module.exports = Timer;

@@ -15,8 +15,8 @@
         "url":  "https://github.com/skinnyjs/skinny-bone-statsd.git"
     },
     "dependencies":    {
-         "node-statsd": "0.0.7",
-         "thunkify":    "0.0.1"
+        "node-statsd": "0.0.7",
+        "thunkify":    "0.0.1"
     },
     "devDependencies": {},
     "engines":         [
